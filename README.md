@@ -6,7 +6,7 @@ administration of Stanford's Programming in Journalism course.
 ## Setup
 
 ```
-git clone
+git clone git@github.com:stanfordjournalism/stanford-progj-admin.git
 cd stanford-progj-admin
 pipenv install
 ```
