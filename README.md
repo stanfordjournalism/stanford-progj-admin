@@ -1,6 +1,7 @@
 # stanford-progj-admin
 
-Command-line utilities (using [invoke][]) to facilitate
+Command-line utilities (using
+[invoke](https://docs.pyinvoke.org/en/stable/)) to facilitate
 administration of Stanford's Programming in Journalism course.
 
 ## Setup
