@@ -12,12 +12,12 @@ cd stanford-progj-admin
 pipenv install
 ```
 
-Generate a [personal GitHub personal API token](https://github.com/settings/tokens).
+Generate a [personal GitHub API token](https://github.com/settings/tokens).
 
-Add your API token and GitHub username to `.env` file:
+Add your API token and GitHub username to a project `.env` file:
 
 ```
-# Fill in your own info here
+# Fill in your own info for below variables
 echo GITHUB_USER=your_username >> .env
 echo GITHUB_API_TOKEN=your_api_token >> .env
 ```
@@ -29,6 +29,6 @@ echo GITHUB_API_TOKEN=your_api_token >> .env
 cd stanford-progj-admin
 pipenv shell
 
-# To see available commands
+# See available commands
 invoke --list
 ```
