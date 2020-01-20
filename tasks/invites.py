@@ -14,10 +14,7 @@ def list(c):
     me = g.get_user()
     invites_list = me.get_invitations()
     for repo_invite in invites_list:
-        # print(repo_invite)
-        me.accept_invitation(repo_invite)
-        print(repo_invite, ' has been accepted.')
-
+        print(repo_invite)
 
     # TODO: list invites
     # https://developer.github.com/v3/repos/invitations/
@@ -30,6 +27,14 @@ def accept(c):
     api_key = os.environ['GITHUB_API_KEY']
     # api_key = 'bla'
     g = github.Github(api_key)
+
+    me = g.get_user()
+    invites_list = me.get_invitations()
+    for repo_invite in invites_list:
+
+        me.accept_invitation(repo_invite)
+        print(repo_invite, ' has been accepted.')
+        
 
     # TODO: accept invites
     # https://pygithub.readthedocs.io/en/latest/github_objects/Invitation.html
