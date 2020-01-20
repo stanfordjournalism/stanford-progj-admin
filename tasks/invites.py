@@ -7,8 +7,8 @@ from invoke import task
 @task()
 def list(c):
     "Show GitHub invitations"
-    # api_key = os.environ['GITHUB_API_KEY']
-    api_key = 'bla'
+    api_key = os.environ['GITHUB_API_KEY']
+    # api_key = 'bla'
     g = github.Github(api_key)
   
     me = g.get_user()
@@ -27,8 +27,8 @@ def list(c):
 @task()
 def accept(c):
     "Accept one or more GitHub invites"
-    # api_key = os.environ['GITHUB_API_KEY']
-    api_key = 'bla'
+    api_key = os.environ['GITHUB_API_KEY']
+    # api_key = 'bla'
     g = github.Github(api_key)
 
     # TODO: accept invites
