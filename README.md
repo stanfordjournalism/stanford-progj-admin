@@ -14,11 +14,10 @@ pipenv install
 
 Generate a [personal GitHub API token](https://github.com/settings/tokens).
 
-Add your API token and GitHub username to a project `.env` file:
+Add your GitHub API token to a project `.env` file:
 
 ```
 # Fill in your own info for below variables
-echo GITHUB_USER=your_username >> .env
 echo GITHUB_API_TOKEN=your_api_token >> .env
 ```
 
