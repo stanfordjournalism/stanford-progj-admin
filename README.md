@@ -20,15 +20,26 @@ This project aims to help instructors manage the large number of repos generated
 
 ## Setup
 
+### Requirements
+
+* git
+* Python >= 3.5
+* pipenv
+* ssh public key added to GitHub
+* A [personal GitHub API token](https://github.com/settings/tokens)
+
+[Personal GitHub API token]: https://github.com/settings/tokens
+
+
+### Install
+
 ```
 git clone git@github.com:stanfordjournalism/stanford-progj-admin.git
 cd stanford-progj-admin
 pipenv install
 ```
 
-Generate a [personal GitHub API token](https://github.com/settings/tokens).
-
-Add your GitHub API token to a project `.env` file:
+Add your [personal GitHub API token][] to a project `.env` file:
 
 ```
 # Fill in your own info for below variables
@@ -41,7 +52,7 @@ Optionally, if you'd like to search for student repos on GitHub based on a stand
 echo REPO_SEARCH_FILTER=comm-177p >> .env
 ```
 
-The above setting is required by the `repos.search` task if the task is not invoked with the `--custom-filter` option.
+The above setting is required by the `repos.search` task when it's not invoked with the `--custom-filter` option.
 
 
 ## Usage
