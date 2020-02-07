@@ -8,6 +8,7 @@ verify_ssl = true
 [packages]
 invoke = "*"
 pygithub = "*"
+canvasapi = "*"
 
 [requires]
 python_version = "3.7"
