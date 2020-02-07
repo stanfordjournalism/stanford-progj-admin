@@ -126,7 +126,7 @@ invoke invites.accept
 invoke repos.search --custom-filter="comm-177p" > data/course_repos.csv
 
 # Clone repos to the cloned_repos/ directory
-invoke repos.clone data/repos_assignment_1.csv
+invoke repos.clone data/course_repos.csv
 ```
 
 ## Tasks
