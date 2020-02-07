@@ -76,9 +76,10 @@ def assignment_repos(c):
                 # NOTE: We save url in a one-element list for
                 # downstream "writerows"
                 if 'github.com' in submission.url:
+                    clean_url = standardize_repo_url(submission.url)
                     urls.setdefault(
                         (atype, str(number)), []
-                    ).append([submission.url])
+                    ).append([clean_url])
     print("Generating repo lists...")
     os.makedirs('data/', exist_ok=True)
     for key, urls in urls.items():
@@ -121,6 +122,14 @@ def parse_assignment_name(name):
         int(number.strip()),
         title.strip().lstrip('-').strip()
     ]
+
+
+def standardize_repo_url(url):
+    """
+    Clean up case where students submit link to file
+    inside repo rather than base repo URL.
+    """
+    return re.split(r'(blob|edit|tree)', url)[0].rstrip('/')
 
 
 def create_repo_urls_file(atype, number, urls):
