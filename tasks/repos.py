@@ -1,6 +1,7 @@
 import os
 import re
 import sys
+import urllib.parse
 
 import github
 from invoke import task
@@ -39,31 +40,54 @@ def search(c, suffix='', custom_filter=''):
         # which is keyword-based and doesn't precisely
         # match on repo names (e.g. comm-177p-assignment-3
         # is returned when searching for comm-177p-assignment-1)
-        if keyword in repo.ssh_url:
-            print(repo.ssh_url)
+        if keyword in repo.html_url:
+            print(repo.html_url)
 
 @task(help={
-    'repos-file': 'Path to text file containing ssh URLs to clone'
+    'repos-file': 'Path to text file containing https URLs to clone'
 })
 def clone(c, repos_file):
     """Clone one or more GitHub repos locally
     from a file containing a list of ssh-based repo URLs.
 
-    The repos file should have one ssh url per row.
-    It can be produced easily using the repos.search task:
+    The repos file should have one https url per row.
+    This task converts HTTPS to SSH urls and clones the repo.
+    The HTTPS urls file can be produced using
+
+        $ invoke canvas.assigment-repos
+
+        # or
 
         $ invoke repos.search > repo_list.txt
 
     """
-    pattern = r'git@github.com:(.+)/(.+).git'
     with open(repos_file,'r') as fh:
         for url in fh:
             clean_url = url.strip()
-            user, project = re.match(pattern, clean_url).groups()
-            project_dir = 'cloned_repos/{}'.format(project)
+            user, repo_name = extract_data_from_url(clean_url)
+            if 'repos_' in repos_file:
+                assignment_type, number = re.match(
+                    r'.*?repos_(.+?)_(\d+).csv',
+                    repos_file
+                ).groups()
+                project_dir = 'cloned_repos/{}_{}'.format(assignment_type, number)
+            else:
+                project_dir = 'cloned_repos/{}'.format(repo_name)
             clone_dir = os.path.join(project_dir, user)
-            c.run('mkdir -p {}'.format(project_dir))
+            os.makedirs(project_dir, exist_ok=True)
             if os.path.exists(clone_dir):
                 print('Skipping already cloned repo: {}'.format(clone_dir))
             else:
-                c.run('git clone {} {}'.format(clean_url, clone_dir))
+                ssh_url = convert_https_to_ssh(clean_url)
+                c.run('git clone {} {}'.format(ssh_url, clone_dir))
+
+
+def extract_data_from_url(url):
+    bits = urllib.parse.urlparse(url).path.split('/')
+    user = bits[1]
+    repo = bits[2]
+    return (user, repo)
+
+def convert_https_to_ssh(url):
+    user, repo = extract_data_from_url(url)
+    return "git@github.com:{}/{}.git".format(user, repo)
