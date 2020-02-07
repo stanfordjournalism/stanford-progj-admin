@@ -4,6 +4,7 @@ import json
 import pytz
 import re
 import sys
+import urllib.parse
 
 from canvasapi import Canvas
 from invoke import task
@@ -129,7 +130,11 @@ def standardize_repo_url(url):
     Clean up case where students submit link to file
     inside repo rather than base repo URL.
     """
-    return re.split(r'(blob|edit|tree)', url)[0].rstrip('/')
+    parsed = urllib.parse.urlparse(url)
+    path_bits = parsed.path.split('/')
+    user = path_bits[1]
+    repo = path_bits[2]
+    return "https://github.com/{}/{}".format(user, repo)
 
 
 def create_repo_urls_file(atype, number, urls):
