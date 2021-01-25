@@ -78,7 +78,10 @@ def clone(c, repos_file):
             if os.path.exists(clone_dir):
                 print('Skipping already cloned repo: {}'.format(clone_dir))
             else:
-                ssh_url = convert_https_to_ssh(clean_url)
+                if 'gist' in clean_url:
+                    ssh_url = convert_gist_to_ssh(clean_url)
+                else:
+                    ssh_url = convert_https_to_ssh(clean_url)
                 c.run('git clone {} {}'.format(ssh_url, clone_dir))
 
 
@@ -91,3 +94,10 @@ def extract_data_from_url(url):
 def convert_https_to_ssh(url):
     user, repo = extract_data_from_url(url)
     return "git@github.com:{}/{}.git".format(user, repo)
+
+def convert_gist_to_ssh(url):
+    # Hash in URL indicates deep link which must be removed
+    if '#' in url:
+        url = re.sub('#.+', '', url)
+    sha = url.split('/')[-1]
+    return "git@gist.github.com:{}.git".format(sha)

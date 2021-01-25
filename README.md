@@ -93,7 +93,7 @@ The most common workflow involves:
 
 * Accepting student invites to GitHub repositories
 * Generating CSVs of GitHub URLs submitted for code assignments
-* Cloning student repos for local review and grading
+* Cloning student gists and repos for local review and grading
 
 Here is a shell session demonstrating the workflow:
 

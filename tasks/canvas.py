@@ -76,11 +76,13 @@ def assignment_repos(c):
                 # of GDoc written assignments
                 # NOTE: We save url in a one-element list for
                 # downstream "writerows"
-                if 'github.com' in submission.url:
+                if 'gist' in submission.url:
+                    clean_url = submission.url
+                elif 'github.com' in submission.url:
                     clean_url = standardize_repo_url(submission.url)
-                    urls.setdefault(
-                        (atype, str(number)), []
-                    ).append([clean_url])
+                urls.setdefault(
+                    (atype, str(number)), []
+                ).append([clean_url])
     print("Generating repo lists...")
     os.makedirs('data/', exist_ok=True)
     for key, urls in urls.items():
