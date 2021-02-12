@@ -5,6 +5,7 @@ import urllib.parse
 
 import github
 from invoke import task
+from invoke import exceptions
 
 
 @task(
@@ -82,7 +83,11 @@ def clone(c, repos_file):
                     ssh_url = convert_gist_to_ssh(clean_url)
                 else:
                     ssh_url = convert_https_to_ssh(clean_url)
-                c.run('git clone {} {}'.format(ssh_url, clone_dir))
+                try:
+                    cmd = 'git clone {} {}'.format(ssh_url, clone_dir)
+                    c.run(cmd)
+                except exceptions.UnexpectedExit:
+                    print(f"Error on: {cmd} (Skipping...)")
 
 
 def extract_data_from_url(url):
