@@ -3,7 +3,7 @@
 - [Setup](#setup)
 - [Usage](#usage)
   - [Standard workflow](#standard-workflow)
-  - [Seconardy workflow](#secondary-workflow)
+  - [Secondary workflow](#secondary-workflow)
 - [Tasks](#tasks)
   - [Canvas](#canvas)
   - [Invites](#invites)
