@@ -141,6 +141,9 @@ invoke invites.list
 
 # Accept all available invites
 invoke invites.accept
+
+# Interactively choose invites to Accept, Decline or Ignore
+invoke invites.accept -i # --interactive
 ```
 
 ### Canvas
